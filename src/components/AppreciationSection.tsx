@@ -8,7 +8,7 @@ export const AppreciationSection = () => {
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
 
   useEffect(() => {
     if (isInView && !isTyping && displayedText === "") {
@@ -23,7 +23,7 @@ export const AppreciationSection = () => {
           clearInterval(typeInterval);
           setIsTyping(false);
         }
-      }, 40);
+      }, 35);
 
       return () => clearInterval(typeInterval);
     }
@@ -32,12 +32,12 @@ export const AppreciationSection = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-32 px-6 bg-cream-warm overflow-hidden"
+      className="relative py-20 sm:py-32 px-4 sm:px-6 bg-cream-warm overflow-hidden"
     >
       {/* Heartbeat background animation */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <motion.div
-          className="w-[600px] h-[600px] rounded-full"
+          className="w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full"
           style={{
             background: "radial-gradient(circle, hsl(350 70% 65% / 0.08) 0%, transparent 70%)"
           }}
@@ -53,18 +53,18 @@ export const AppreciationSection = () => {
         />
       </div>
 
-      {/* Floating hearts in background */}
+      {/* Floating hearts in background - fewer on mobile */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(6)].map((_, i) => (
+        {[...Array(4)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute text-rose/20"
             style={{
-              left: `${15 + i * 15}%`,
-              top: `${20 + (i % 3) * 25}%`
+              left: `${15 + i * 20}%`,
+              top: `${25 + (i % 2) * 30}%`
             }}
             animate={{
-              y: [0, -20, 0],
+              y: [0, -15, 0],
               opacity: [0.2, 0.4, 0.2],
               scale: [1, 1.1, 1]
             }}
@@ -75,7 +75,7 @@ export const AppreciationSection = () => {
               ease: "easeInOut"
             }}
           >
-            <Heart size={24 + i * 4} fill="currentColor" />
+            <Heart size={20 + i * 4} fill="currentColor" />
           </motion.div>
         ))}
       </div>
@@ -86,14 +86,14 @@ export const AppreciationSection = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-8"
+          className="mb-6 sm:mb-8"
         >
-          <Heart className="w-16 h-16 text-rose mx-auto animate-heartbeat" fill="currentColor" />
+          <Heart className="w-12 h-12 sm:w-16 sm:h-16 text-rose mx-auto animate-heartbeat" fill="currentColor" />
         </motion.div>
 
-        <div className="min-h-[180px] flex items-center justify-center">
+        <div className="min-h-[150px] sm:min-h-[180px] flex items-center justify-center px-2">
           <motion.p 
-            className="font-body text-2xl md:text-3xl lg:text-4xl text-foreground/90 leading-relaxed italic"
+            className="font-body text-lg sm:text-2xl md:text-3xl lg:text-4xl text-foreground/90 leading-relaxed italic"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -101,7 +101,7 @@ export const AppreciationSection = () => {
             "{displayedText}
             {isTyping && (
               <motion.span
-                className="inline-block w-1 h-8 bg-gold ml-1"
+                className="inline-block w-0.5 sm:w-1 h-5 sm:h-8 bg-gold ml-0.5 sm:ml-1"
                 animate={{ opacity: [1, 0] }}
                 transition={{ duration: 0.5, repeat: Infinity }}
               />
@@ -115,9 +115,9 @@ export const AppreciationSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="mt-8"
+            className="mt-6 sm:mt-8"
           >
-            <p className="font-display text-xl text-gold">
+            <p className="font-display text-base sm:text-xl text-gold">
               With deepest gratitude and love
             </p>
           </motion.div>

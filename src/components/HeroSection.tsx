@@ -24,7 +24,7 @@ const FloatingHeart = ({ delay, x, size }: { delay: number; x: string; size: num
 
 const LightRay = ({ delay, rotation }: { delay: number; rotation: number }) => (
   <motion.div
-    className="absolute top-0 left-1/2 h-[150vh] w-32 origin-top opacity-20"
+    className="absolute top-0 left-1/2 h-[150vh] w-16 md:w-32 origin-top opacity-20"
     style={{ 
       background: "linear-gradient(180deg, hsl(38 75% 55% / 0.3) 0%, transparent 100%)",
       rotate: `${rotation}deg`,
@@ -43,7 +43,7 @@ const LightRay = ({ delay, rotation }: { delay: number; rotation: number }) => (
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-gradient">
+    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-hero-gradient">
       {/* Animated light rays */}
       <div className="absolute inset-0 overflow-hidden">
         <LightRay delay={0} rotation={-30} />
@@ -52,20 +52,22 @@ export const HeroSection = () => {
         <LightRay delay={6} rotation={30} />
       </div>
 
-      {/* Floating hearts */}
+      {/* Floating hearts - fewer on mobile */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <FloatingHeart delay={0} x="10%" size={20} />
-        <FloatingHeart delay={3} x="25%" size={16} />
-        <FloatingHeart delay={6} x="75%" size={24} />
-        <FloatingHeart delay={9} x="85%" size={18} />
-        <FloatingHeart delay={2} x="50%" size={14} />
+        <FloatingHeart delay={0} x="8%" size={16} />
+        <FloatingHeart delay={4} x="85%" size={14} />
+        <div className="hidden sm:block">
+          <FloatingHeart delay={3} x="25%" size={16} />
+          <FloatingHeart delay={6} x="75%" size={20} />
+          <FloatingHeart delay={2} x="50%" size={12} />
+        </div>
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
         {/* Floating stethoscope and heart */}
         <motion.div 
-          className="flex justify-center items-center gap-4 mb-8"
+          className="flex justify-center items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
@@ -75,27 +77,27 @@ export const HeroSection = () => {
             animate={{ rotate: [-5, 5, -5] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
-            <Stethoscope size={48} strokeWidth={1.5} />
+            <Stethoscope className="w-10 h-10 sm:w-12 sm:h-12" strokeWidth={1.5} />
           </motion.div>
           <motion.div
             className="text-rose animate-heartbeat"
           >
-            <Heart size={40} fill="currentColor" />
+            <Heart className="w-8 h-8 sm:w-10 sm:h-10" fill="currentColor" />
           </motion.div>
         </motion.div>
 
         {/* Main heading */}
         <motion.h1 
-          className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-gradient-gold"
+          className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-6 text-gradient-gold leading-tight"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
           Happy Birthday,
           <br />
-          <span className="block mt-2">Doctor Kemmy</span>
+          <span className="block mt-1 sm:mt-2">Doctor Kemmy</span>
           <motion.span 
-            className="inline-block ml-4"
+            className="inline-block ml-2 sm:ml-4 text-3xl sm:text-5xl md:text-6xl"
             animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.2, 1] }}
             transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 3 }}
           >
@@ -105,7 +107,7 @@ export const HeroSection = () => {
 
         {/* Subtitle */}
         <motion.p 
-          className="font-body text-xl md:text-2xl text-foreground/80 italic max-w-2xl mx-auto"
+          className="font-body text-base sm:text-xl md:text-2xl text-foreground/80 italic max-w-xs sm:max-w-xl md:max-w-2xl mx-auto px-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
@@ -115,7 +117,7 @@ export const HeroSection = () => {
 
         {/* Scroll indicator */}
         <motion.div 
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, y: [0, 10, 0] }}
           transition={{ 
@@ -123,10 +125,10 @@ export const HeroSection = () => {
             y: { delay: 2, duration: 2, repeat: Infinity }
           }}
         >
-          <div className="w-6 h-10 border-2 border-gold/50 rounded-full flex justify-center pt-2">
+          <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-gold/50 rounded-full flex justify-center pt-1.5 sm:pt-2">
             <motion.div 
-              className="w-1.5 h-3 bg-gold rounded-full"
-              animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}
+              className="w-1 h-2 sm:w-1.5 sm:h-3 bg-gold rounded-full"
+              animate={{ y: [0, 10, 0], opacity: [1, 0.3, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
           </div>
